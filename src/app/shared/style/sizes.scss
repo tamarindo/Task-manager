@@ -1,0 +1,43 @@
+$baseFontSize:14px;
+$baseContentPadding: 11.5px;
+
+@mixin size-text( $sizes, $weight) {
+   font-size: $sizes;
+   font-weight: $weight;
+  }
+
+  .Text-LargeSemibold{
+    @include size-text( $sizes, $weight);
+  }
+  .Text-MediumSemibold{
+    @include size-text( $sizes, $weight);
+  }
+  .Text-MediumRegular{
+    @include size-text( $sizes, $weight);
+  }
+  .Text-NormalSemibold{
+    @include size-text( $sizes, $weight);
+  }
+  .Text-NormalRegular{
+    @include size-text( $sizes, $weight);
+  }
+  .Text-SmallSemibold{
+    @include size-text( $sizes, $weight);
+  }
+  .Text-SmallRegular{
+    @include size-text( $sizes, $weight);
+  }
+
+
+  h1{
+    @include size-text( $sizes, $weight);
+  }
+  h2{
+    @include size-text( $sizes, $weight);
+  }
+  h3{
+    @include size-text( $sizes, $weight);
+  }
+  h4{
+    @include size-text( $sizes, $weight);
+  }
