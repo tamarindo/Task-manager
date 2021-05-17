@@ -1,0 +1,19 @@
+ .maunButton{
+    color: white;
+    background-color: black;
+    display: inline-block;
+    width: 200px;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 0px;
+    font-family: 'Poppins';
+    border-radius: 5px;
+    height: 48px;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+ }
+
+ .maunButton--segundary{
+    color: black;
+    background-color: white;
+ }

@@ -1,0 +1,25 @@
+@import './shared/style/fonts.scss';
+@import './shared/style/colors.scss';
+
+
+.body{
+    background-color: #E5E5E5;
+    font-family: 'Poppins';
+    height: 100;
+}
+.container{
+    padding: 0 60px;
+    height: calc(100vh - 80px);
+}
+
+.button {
+    background: black;
+    color: white;
+    border: 0px;
+}
+
+.mat-menu-panel {
+    padding: 0px 5px;
+    background: #373737;
+    
+  }

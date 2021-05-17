@@ -1,12 +1,12 @@
-<head class="Header"> 
+<header class="Header"> 
     <div class="Header-RContainer">
-        <img class="Header" alt="CARGAMOS">
+        <img src="./assets/images/logo.png" class="Header-Img" alt="CARGAMOS">
     </div>
     <div class="Header-LContainer">
-        <a class="Header-Link">
+        <a *ngIf="userCurrency | async as user" (click)="logout()" class="Header-Link">
             <span>
                 Cerrar Sesion
             </span>
         </a>
     </div>
-</head>
+</header>

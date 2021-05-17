@@ -1,1 +1,30 @@
-<p>history-table works!</p>
+<div class="mainTable">
+ 
+    <table mat-table [dataSource]="TableHistoryTasks" >
+  
+      <ng-container matColumnDef="descripcion">
+        <th mat-header-cell *matHeaderCellDef> Descripción</th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      
+      </ng-container>
+      <ng-container matColumnDef="durationS">
+          <th mat-header-cell *matHeaderCellDef> Tiempo asignado</th>
+          <td mat-cell *matCellDef="let element"> {{element.durationS |minuteSeconds}} </td>
+          
+      </ng-container>
+      <ng-container matColumnDef="timeS">
+          <th mat-header-cell *matHeaderCellDef> Tiempo restante</th>
+          <td mat-cell *matCellDef="let element"> {{element.timeS |minuteSeconds }} </td>
+         
+      </ng-container>
+  
+      <ng-container matColumnDef="dateComplete">
+        <th mat-header-cell *matHeaderCellDef> Fecha de completuds</th>
+        <td mat-cell *matCellDef="let element"> {{element.dateComplete }}  </td>
+    </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
+    </table>
+    <mat-paginator  [pageSizeOptions]="[5, 10, 20]" ></mat-paginator> 
+  </div>

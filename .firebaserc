@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "taskmanager-47dff": {
+      "hosting": {
+        "task-manager": [
+          "taskmanager-47dff"
+        ]
+      }
+    }
+  }
+}

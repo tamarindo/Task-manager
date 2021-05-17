@@ -1,14 +1,16 @@
 <div class="MainControls">
-    <div class="MainControls">
-        <button class="MainControls">
-            CREAR TAREA
-        </button>
-    </div>
-   <div class="MainControls" >
-        <button class="MainControls" routerLink="/historical">
-            VER HISTORIAL
-        </button>
+    <div>
+        <main-button  *ngIf=" !TableCurrency" [text]="'CREAR NUEVA TAREA'" (click)="openDialog()"></main-button>   
+    </div>    
+    <div>
+        <main-button *ngIf=" !TableCurrency " (click)="onclick()"  [modification]="'segundary'" [text]="'VER HISTORIAL'"></main-button> 
+        <main-button *ngIf=" TableCurrency " (click)="onclick()"  [modification]="'segundary'" [text]=" 'Ver BACKLOG '"></main-button> 
 
-        <input placeholder="Filtrar" class="MainControls">
-   </div>
+            <select *ngIf=" TableCurrency " matNativeControl (change)="changeSelect()" [(ngModel)]="orderby"  class="button MainControls-input" >
+                <option value="all"> Todos</option>
+                <option value="bajo">Corta 30 min</option>
+                <option value="medio">Media 30 min a 1 hora </option>
+                <option value="alto">larga mas de 1 Hora</option>
+            </select>    
+    </div>        
 </div>

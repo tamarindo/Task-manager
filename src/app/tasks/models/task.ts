@@ -1,11 +1,9 @@
-import { Timestamp } from "rxjs";
-
-export class  Task{
-    id:number = 0;
-    name: string = '';
-    description : string = "";
-    durationS: number = 0;
-    timeS: number = 0;
-    status:String = '';
-    completed: boolean = false
+export interface Task{
+    id ?:any;
+    description : string;
+    durationS: number;
+    timeS: number;
+    completed: boolean;
+    orden ?:number;
+    dateComplete ?: String;
 }

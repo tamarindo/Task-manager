@@ -1,0 +1,28 @@
+ <div mat-dialog-content>
+     <div><h1>Crear Tarea</h1></div>
+    <Form>
+        <mat-form-field class="example-full-width">
+            <mat-label>Descripcion</mat-label>
+            <input matInput 
+            required 
+            placeholder="descripcion..." 
+            [(ngModel)]="data.description">
+        </mat-form-field>    
+        <mat-form-field appearance="fill">
+        <mat-label>Duracion</mat-label>
+        <select matNativeControl  [(ngModel)]="data.resultSelect">
+            <option ></option>
+            <option value="1800">Corta 30 min</option>
+            <option value="2700">Media 45 min </option>
+            <option value="3600">Larga 1 Hora</option>
+            <option value="Personalizada">Personalizada</option>
+        </select>
+        </mat-form-field>
+        <mat-form-field *ngIf="data.resultSelect == 'Personalizada'" class="example-full-width">
+            <mat-label>Ingresaer la duración en segundos</mat-label>
+            <input matInput type="number" [(ngModel)]="data.durationS" placeholder="Duracion" >
+        </mat-form-field>
+        <button mat-button [disabled]="(!data.resultSelect || data.description == ''|| data.resultSelect == 'Personalizada' && data.durationS == 0 ) " color="primary" [mat-dialog-close]="data" >Guardar</button>
+        
+    </Form>
+ </div>

@@ -1,17 +1,18 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TasksComponent } from './tasks/pages/tasks/tasks.component';
-import { HistoryTasksComponent } from './tasks/pages/history-tasks/history-tasks.component';
+import { AuthGuardlogin } from "./shared/guard/auth.guardLogin";
+import { AuthGuardlogout } from "./shared/guard/auth.guardLogout";
 
 const routes: Routes = [
   {
-    path:'',
-    component:TasksComponent
+    path:'tasks',
+    loadChildren: () => import('./tasks/tasks.module').then(m=> m.TasksModule) , canActivate: [AuthGuardlogin]
   },
   {
-    path:'historical',
-    component:HistoryTasksComponent
+    path:'auth',
+    loadChildren: () => import('./auth/auth.module').then(m=> m.AuthModule),canActivate: [AuthGuardlogout]
   },
+  {path:'**', redirectTo:'tasks'}
 ];
 
 @NgModule({

@@ -1,4 +1,59 @@
 /* You can add global styles to this file, and also import other style files */
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Poppins'; }
+.mat-menu-panel {
+    padding: 15px;
+    background: #373737;
+    color: white;
+  }
+
+  .mat-menu-item {
+    color: white;
+    border-bottom: 1px solid white !important;
+  }
+
+  .mat-menu-item:last-child {
+      border-bottom: 0px !important;
+  }
+  .mat-menu-panel{
+    padding: 0 10px;
+  }
+  
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th.mat-header-cell {
+  background: black;
+  color: white;
+  text-align: center !important;
+  font-family: 'Poppins';
+  font-weight: 500;
+}
+
+.mat-header-cell:after {
+content: '';
+float: right;
+height: 20px;
+width: 1px;
+background-color: white;
+}
+
+.mat-header-cell:last-child::after{
+  width: 0px !important;
+}
+
+td.mat-cell{
+text-align: center !important;;
+}
+
+.mat-row button{
+background-color: transparent !important;;
+border: 0 !important;;
+}
+
+.mat-menu-panel{
+padding: 0 5px !important;
+}

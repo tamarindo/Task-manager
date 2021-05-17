@@ -1,0 +1,29 @@
+<app-main-controls
+    [status]="TableCurrency"
+    (newTaskEvent)="saveTask($event)"
+   (clickBtn)="toogleTable($event)"
+   (changeFilter)="changeFilter($event)"
+></app-main-controls>
+<app-main-table 
+    *ngIf=" !TableCurrency "
+    [data]="PendingTasks"
+    (deleteTaskEvent)="deleteTask($event)"
+    (completeTaskEvent)="completeTask($event)"
+    (saveTaskEvent)="editTask($event)"
+    (updateTimeEvent)="updateTime($event)"
+    (editTaskfroModal)="editTaskfroModal($event)"
+></app-main-table>
+<div *ngIf=" TableCurrency">
+    <div >
+        
+        <app-history-table
+        
+        [data]="CompleteTasks">
+    </app-history-table>
+    </div>
+    <div >
+        <h2> Comportamento en la ultima semana</h2>
+        <app-chart data="dataChart" ></app-chart>
+    </div>
+</div>
+

@@ -1,3 +1,16 @@
+
 .Header{
-    
+    display: flex;
+    align-items: center;
+    background-color: black;
+    height: 80px;
+    padding: 0 60px;
+    justify-content: space-between;
+    &-Img{
+        height: 30px;    
+    }
+    &-Link{
+        color: white;
+        cursor: pointer;
+    }
 }

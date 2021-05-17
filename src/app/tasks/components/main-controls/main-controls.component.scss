@@ -1,0 +1,20 @@
+.MainControls {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 58px;
+    margin-top:63px;
+    &-input{
+        width: 300px;
+        height: 35px;
+        background-color: transparent;
+        border: 0px;
+        border-bottom: 1px solid #A0A0A0;
+        margin-left: 50px;
+    }
+
+    &-input:focus-visible{
+        border: 0px;
+        border-bottom: 2px solid rgb(0 0 0 / 87%);
+        outline: none;
+    }
+}
