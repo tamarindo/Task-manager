@@ -1,8 +1,5 @@
 import { Component, Output , OnInit,EventEmitter, Input,Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Task } from '../../models/task';
-
-
 
 @Component({
   selector: 'app-modal-delete-task',
