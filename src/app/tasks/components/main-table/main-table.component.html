@@ -1,4 +1,6 @@
-<div class="mainTable">
+
+<div class="mainTable" >
+  
   <table mat-table [dataSource]="TablePendingTasks" >
 
     <ng-container matColumnDef="descripcion">
@@ -59,5 +61,5 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns:displayedColumns"></tr>
   </table>
-  <mat-paginator  [pageSizeOptions]="[2, 10, 20]" ></mat-paginator> 
+  <mat-paginator  [pageSizeOptions]="[5, 10, 20]" ></mat-paginator> 
 

@@ -19,18 +19,14 @@ export class PanelTasksComponent implements OnInit {
   dataChart: any;
   idFristElement:string = "";
 
-  @ViewChild(MainTableComponent) child: any;
-
-
-  @ViewChild(HistoryTableComponent) childControlPanel: any;
+  @ViewChild(MainTableComponent) MainTableComponent: any;
+  @ViewChild(HistoryTableComponent) HistoryTableComponent: any;
 
   constructor(   private _servicio: TasksService,
     private _servicioGrafica: ChartService, ) { }
 
   ngOnInit(): void {
     this.getTasks();
-
-
   }
 
   changeFilter(param:any){
@@ -53,7 +49,7 @@ export class PanelTasksComponent implements OnInit {
         (x: any) => x.completed  !== false  && x.durationS > (60*60) 
       );
     }
-    this.childControlPanel.updateHistoryTable(this.CompleteTasks)
+    this.HistoryTableComponent.updateHistoryTable(this.CompleteTasks)
   }
   getTasks(){
     this._servicio.getTasks().subscribe(
@@ -88,8 +84,7 @@ export class PanelTasksComponent implements OnInit {
           (x: any) => x.completed  !== false 
         );
         this.dataChart = this._servicioGrafica.organizedata(data) 
-
-        this.child.updateTable(this.PendingTasks);
+        this.MainTableComponent.updateTable(this.PendingTasks);
       }
     );
     
@@ -97,10 +92,16 @@ export class PanelTasksComponent implements OnInit {
 
   toogleTable(status:boolean){
     this.TableCurrency = ! status;
+    if( !status){
+      this.MainTableComponent.updateTable(this.PendingTasks);
+    }else{
+      this.HistoryTableComponent.updateHistoryTable(this.CompleteTasks)
+    }
+    
   }
   deleteTask(task:Task){
     this._servicio.deleteTask(task)
-    this.child.updateTable(this.PendingTasks);
+    this.MainTableComponent.updateTable(this.PendingTasks);
   }
 
   completeTask(task:Task){
@@ -108,9 +109,9 @@ export class PanelTasksComponent implements OnInit {
     const f:Date = new Date();
     task.dateComplete = f.getDate() + "-"+ f.getMonth()+ "-" +f.getFullYear();
     this._servicio.editTask(task)
-    this.child.updateTable(this.PendingTasks).then(
+    this.MainTableComponent.updateTable(this.PendingTasks).then(
       ()=>{
-          this.child.updateTable(this.PendingTasks);
+          this.MainTableComponent.updateTable(this.PendingTasks);
       }
     ).catch(
       (error:any) =>{
@@ -120,10 +121,10 @@ export class PanelTasksComponent implements OnInit {
   }
   saveTask(task:any){
     const newTask = task;
-      task.orden = this.listTask.length + 1;
+      task.orden = this.listTask.reduce( (x,y)=>{return (x.orden>y.orden)?x:y}).orden + 1;
       var result = this._servicio.saveTask(task).then(
         ()=>{
-            this.child.updateTable(this.PendingTasks);
+            this.MainTableComponent.updateTable(this.PendingTasks);
         }
       ).catch(
         (error) =>{
@@ -135,7 +136,7 @@ export class PanelTasksComponent implements OnInit {
   editTask(task:Task){
     this._servicio.editTask(task).then(
       (x)=>{
-        this.child.updateTable(this.PendingTasks);
+        this.MainTableComponent.updateTable(this.PendingTasks);
       }
     ).catch(
       (error)=>{
@@ -157,7 +158,7 @@ export class PanelTasksComponent implements OnInit {
     this._servicio.editTask(task).then(
       (x)=>{
    
-        this.child.updateTable(this.PendingTasks);
+        this.MainTableComponent.updateTable(this.PendingTasks);
       }
     ).catch(
       (error)=>{

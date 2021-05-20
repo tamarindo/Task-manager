@@ -15,7 +15,7 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./main-table.component.scss']
 })
 
-export class MainTableComponent implements OnInit , AfterViewInit {
+export class MainTableComponent implements OnInit  {
   displayedColumns: string[] =  ['descripcion', 'durationS','Controles', 'timeS','opciones'];
   TablePendingTasks: any = null;
   StatusPlay:boolean = false;
@@ -36,14 +36,11 @@ export class MainTableComponent implements OnInit , AfterViewInit {
   }
 
 
-  @ViewChild(MatPaginator, {static:true}) paginator: any;
+  @ViewChild(MatPaginator) paginator: any;
 
 
   ngOnInit() {
     //this.updateTable(this.PendingTasks);
- 
-  }
-  ngAfterViewInit(){
     if(localStorage.getItem('timer') != null){
       let task:any = JSON.parse(localStorage.getItem('pengindTask')|| '');
       let timer:any = JSON.parse(localStorage.getItem('timer')|| '')
@@ -53,7 +50,9 @@ export class MainTableComponent implements OnInit , AfterViewInit {
       localStorage.removeItem('pengindTask');
       localStorage.removeItem('timer');  
     };
+ 
   }
+
   
   updateTable(PendingTasks:Task[]){
     this.TablePendingTasks =  new MatTableDataSource<Task>(

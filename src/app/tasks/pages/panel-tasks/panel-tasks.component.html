@@ -4,8 +4,9 @@
    (clickBtn)="toogleTable($event)"
    (changeFilter)="changeFilter($event)"
 ></app-main-controls>
-<app-main-table 
-    *ngIf=" !TableCurrency "
+<div  [hidden]="TableCurrency ">
+    <app-main-table 
+   
     [data]="PendingTasks"
     [idFristElement]="idFristElement"
     (deleteTaskEvent)="deleteTask($event)"
@@ -15,8 +16,10 @@
     (editTaskfroModal)="editTaskfroModal($event)"
     
 ></app-main-table>
-<div *ngIf=" TableCurrency">
-    <div >
+</div>
+
+<div >
+    <div *ngIf="TableCurrency">
         
         <app-history-table
         

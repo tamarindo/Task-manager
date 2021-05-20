@@ -17,12 +17,12 @@ export class HistoryTableComponent implements OnInit   {
    
   constructor(private _servicio: TasksService) {
    }
-   @ViewChild(MatPaginator, {static:true}) paginator: any;
+   @ViewChild(MatPaginator, {static:true}) paginator2: any;
    updateHistoryTable(CompleteTasks:Task[]){
     this.TableHistoryTasks =  new MatTableDataSource<Task>(
       CompleteTasks
       );
-    this.TableHistoryTasks.paginator = this.paginator;
+    this.TableHistoryTasks.paginator = this.paginator2;
   }
   ngOnInit(): void {
     this.updateHistoryTable(this.CompleteTasks); 

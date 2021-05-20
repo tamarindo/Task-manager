@@ -28,28 +28,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-function PanelTasksComponent_app_main_table_1_Template(rf, ctx) { if (rf & 1) {
-    const _r3 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵgetCurrentView"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "app-main-table", 3);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("deleteTaskEvent", function PanelTasksComponent_app_main_table_1_Template_app_main_table_deleteTaskEvent_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r3); const ctx_r2 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r2.deleteTask($event); })("completeTaskEvent", function PanelTasksComponent_app_main_table_1_Template_app_main_table_completeTaskEvent_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r3); const ctx_r4 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r4.completeTask($event); })("saveTaskEvent", function PanelTasksComponent_app_main_table_1_Template_app_main_table_saveTaskEvent_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r3); const ctx_r5 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r5.editTask($event); })("updateTimeEvent", function PanelTasksComponent_app_main_table_1_Template_app_main_table_updateTimeEvent_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r3); const ctx_r6 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r6.updateTime($event); })("editTaskfroModal", function PanelTasksComponent_app_main_table_1_Template_app_main_table_editTaskfroModal_0_listener($event) { _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵrestoreView"](_r3); const ctx_r7 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"](); return ctx_r7.editTaskfroModal($event); });
+function PanelTasksComponent_div_4_Template(rf, ctx) { if (rf & 1) {
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div");
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](1, "app-history-table", 5);
     _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
 } if (rf & 2) {
     const ctx_r0 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("data", ctx_r0.PendingTasks)("idFristElement", ctx_r0.idFristElement);
-} }
-function PanelTasksComponent_div_2_Template(rf, ctx) { if (rf & 1) {
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](2, "app-history-table", 4);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "div");
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](4, "app-chart", 5);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-} if (rf & 2) {
-    const ctx_r1 = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵnextContext"]();
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
-    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("data", ctx_r1.CompleteTasks);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
+    _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("data", ctx_r0.CompleteTasks);
 } }
 class PanelTasksComponent {
     constructor(_servicio, _servicioGrafica) {
@@ -77,7 +63,7 @@ class PanelTasksComponent {
         else if (param == "alto") {
             this.CompleteTasks = this.listTask.filter((x) => x.completed !== false && x.durationS > (60 * 60));
         }
-        this.childControlPanel.updateHistoryTable(this.CompleteTasks);
+        this.HistoryTableComponent.updateHistoryTable(this.CompleteTasks);
     }
     getTasks() {
         this._servicio.getTasks().subscribe((data) => {
@@ -104,32 +90,38 @@ class PanelTasksComponent {
             this.PendingTasks = this.listTask.filter((x) => x.completed !== true);
             this.CompleteTasks = this.listTask.filter((x) => x.completed !== false);
             this.dataChart = this._servicioGrafica.organizedata(data);
-            this.child.updateTable(this.PendingTasks);
+            this.MainTableComponent.updateTable(this.PendingTasks);
         });
     }
     toogleTable(status) {
         this.TableCurrency = !status;
+        if (!status) {
+            this.MainTableComponent.updateTable(this.PendingTasks);
+        }
+        else {
+            this.HistoryTableComponent.updateHistoryTable(this.CompleteTasks);
+        }
     }
     deleteTask(task) {
         this._servicio.deleteTask(task);
-        this.child.updateTable(this.PendingTasks);
+        this.MainTableComponent.updateTable(this.PendingTasks);
     }
     completeTask(task) {
         task.completed = true;
         const f = new Date();
         task.dateComplete = f.getDate() + "-" + f.getMonth() + "-" + f.getFullYear();
         this._servicio.editTask(task);
-        this.child.updateTable(this.PendingTasks).then(() => {
-            this.child.updateTable(this.PendingTasks);
+        this.MainTableComponent.updateTable(this.PendingTasks).then(() => {
+            this.MainTableComponent.updateTable(this.PendingTasks);
         }).catch((error) => {
             console.log(error);
         });
     }
     saveTask(task) {
         const newTask = task;
-        task.orden = this.listTask.length + 1;
+        task.orden = this.listTask.reduce((x, y) => { return (x.orden > y.orden) ? x : y; }).orden + 1;
         var result = this._servicio.saveTask(task).then(() => {
-            this.child.updateTable(this.PendingTasks);
+            this.MainTableComponent.updateTable(this.PendingTasks);
         }).catch((error) => {
             console.log(error);
         });
@@ -137,7 +129,7 @@ class PanelTasksComponent {
     updateTime(task) { }
     editTask(task) {
         this._servicio.editTask(task).then((x) => {
-            this.child.updateTable(this.PendingTasks);
+            this.MainTableComponent.updateTable(this.PendingTasks);
         }).catch((error) => {
             console.log(error);
         });
@@ -154,7 +146,7 @@ class PanelTasksComponent {
             task.durationS = data.durationS;
         }
         this._servicio.editTask(task).then((x) => {
-            this.child.updateTable(this.PendingTasks);
+            this.MainTableComponent.updateTable(this.PendingTasks);
         }).catch((error) => {
             console.log(error);
         });
@@ -166,21 +158,32 @@ PanelTasksComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵdefi
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵviewQuery"](_components_history_table_history_table_component__WEBPACK_IMPORTED_MODULE_1__["HistoryTableComponent"], 1);
     } if (rf & 2) {
         let _t;
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵloadQuery"]()) && (ctx.child = _t.first);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵloadQuery"]()) && (ctx.childControlPanel = _t.first);
-    } }, decls: 3, vars: 3, consts: [[3, "status", "newTaskEvent", "clickBtn", "changeFilter"], [3, "data", "idFristElement", "deleteTaskEvent", "completeTaskEvent", "saveTaskEvent", "updateTimeEvent", "editTaskfroModal", 4, "ngIf"], [4, "ngIf"], [3, "data", "idFristElement", "deleteTaskEvent", "completeTaskEvent", "saveTaskEvent", "updateTimeEvent", "editTaskfroModal"], [3, "data"], ["data", "dataChart"]], template: function PanelTasksComponent_Template(rf, ctx) { if (rf & 1) {
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵloadQuery"]()) && (ctx.MainTableComponent = _t.first);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵloadQuery"]()) && (ctx.HistoryTableComponent = _t.first);
+    } }, decls: 7, vars: 5, consts: [[3, "status", "newTaskEvent", "clickBtn", "changeFilter"], [3, "hidden"], [3, "data", "idFristElement", "deleteTaskEvent", "completeTaskEvent", "saveTaskEvent", "updateTimeEvent", "editTaskfroModal"], [4, "ngIf"], ["data", "dataChart"], [3, "data"]], template: function PanelTasksComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "app-main-controls", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("newTaskEvent", function PanelTasksComponent_Template_app_main_controls_newTaskEvent_0_listener($event) { return ctx.saveTask($event); })("clickBtn", function PanelTasksComponent_Template_app_main_controls_clickBtn_0_listener($event) { return ctx.toogleTable($event); })("changeFilter", function PanelTasksComponent_Template_app_main_controls_changeFilter_0_listener($event) { return ctx.changeFilter($event); });
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](1, PanelTasksComponent_app_main_table_1_Template, 1, 2, "app-main-table", 1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](2, PanelTasksComponent_div_2_Template, 5, 1, "div", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "div", 1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](2, "app-main-table", 2);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵlistener"]("deleteTaskEvent", function PanelTasksComponent_Template_app_main_table_deleteTaskEvent_2_listener($event) { return ctx.deleteTask($event); })("completeTaskEvent", function PanelTasksComponent_Template_app_main_table_completeTaskEvent_2_listener($event) { return ctx.completeTask($event); })("saveTaskEvent", function PanelTasksComponent_Template_app_main_table_saveTaskEvent_2_listener($event) { return ctx.editTask($event); })("updateTimeEvent", function PanelTasksComponent_Template_app_main_table_updateTimeEvent_2_listener($event) { return ctx.updateTime($event); })("editTaskfroModal", function PanelTasksComponent_Template_app_main_table_editTaskfroModal_2_listener($event) { return ctx.editTaskfroModal($event); });
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](3, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵtemplate"](4, PanelTasksComponent_div_4_Template, 2, 1, "div", 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](5, "div");
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelement"](6, "app-chart", 4);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementEnd"]();
     } if (rf & 2) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("status", ctx.TableCurrency);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", !ctx.TableCurrency);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("hidden", ctx.TableCurrency);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](1);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("data", ctx.PendingTasks)("idFristElement", ctx.idFristElement);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵadvance"](2);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵproperty"]("ngIf", ctx.TableCurrency);
-    } }, directives: [_components_main_controls_main_controls_component__WEBPACK_IMPORTED_MODULE_5__["MainControlsComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _components_main_table_main_table_component__WEBPACK_IMPORTED_MODULE_0__["MainTableComponent"], _components_history_table_history_table_component__WEBPACK_IMPORTED_MODULE_1__["HistoryTableComponent"], _components_chart_chart_component__WEBPACK_IMPORTED_MODULE_7__["ChartComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwYW5lbC10YXNrcy5jb21wb25lbnQuc2NzcyJ9 */"] });
+    } }, directives: [_components_main_controls_main_controls_component__WEBPACK_IMPORTED_MODULE_5__["MainControlsComponent"], _components_main_table_main_table_component__WEBPACK_IMPORTED_MODULE_0__["MainTableComponent"], _angular_common__WEBPACK_IMPORTED_MODULE_6__["NgIf"], _components_chart_chart_component__WEBPACK_IMPORTED_MODULE_7__["ChartComponent"], _components_history_table_history_table_component__WEBPACK_IMPORTED_MODULE_1__["HistoryTableComponent"]], styles: ["\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJwYW5lbC10YXNrcy5jb21wb25lbnQuc2NzcyJ9 */"] });
 
 
 /***/ }),
@@ -758,7 +761,7 @@ function MainTableComponent_tr_17_Template(rf, ctx) { if (rf & 1) {
 function MainTableComponent_tr_18_Template(rf, ctx) { if (rf & 1) {
     _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵelement"](0, "tr", 33);
 } }
-const _c0 = function () { return [2, 10, 20]; };
+const _c0 = function () { return [5, 10, 20]; };
 class MainTableComponent {
     constructor(dialog) {
         this.dialog = dialog;
@@ -775,8 +778,6 @@ class MainTableComponent {
     }
     ngOnInit() {
         //this.updateTable(this.PendingTasks);
-    }
-    ngAfterViewInit() {
         if (localStorage.getItem('timer') != null) {
             let task = JSON.parse(localStorage.getItem('pengindTask') || '');
             let timer = JSON.parse(localStorage.getItem('timer') || '');
@@ -905,7 +906,7 @@ class MainTableComponent {
 }
 MainTableComponent.ɵfac = function MainTableComponent_Factory(t) { return new (t || MainTableComponent)(_angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdirectiveInject"](_angular_material_dialog__WEBPACK_IMPORTED_MODULE_5__["MatDialog"])); };
 MainTableComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵdefineComponent"]({ type: MainTableComponent, selectors: [["app-main-table"]], viewQuery: function MainTableComponent_Query(rf, ctx) { if (rf & 1) {
-        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_material_paginator__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"], 3);
+        _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵviewQuery"](_angular_material_paginator__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"], 1);
     } if (rf & 2) {
         let _t;
         _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_0__["ɵɵloadQuery"]()) && (ctx.paginator = _t.first);
@@ -1716,7 +1717,7 @@ class HistoryTableComponent {
     }
     updateHistoryTable(CompleteTasks) {
         this.TableHistoryTasks = new _angular_material_table__WEBPACK_IMPORTED_MODULE_0__["MatTableDataSource"](CompleteTasks);
-        this.TableHistoryTasks.paginator = this.paginator;
+        this.TableHistoryTasks.paginator = this.paginator2;
     }
     ngOnInit() {
         this.updateHistoryTable(this.CompleteTasks);
@@ -1727,7 +1728,7 @@ HistoryTableComponent.ɵcmp = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵde
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵviewQuery"](_angular_material_paginator__WEBPACK_IMPORTED_MODULE_1__["MatPaginator"], 3);
     } if (rf & 2) {
         let _t;
-        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵloadQuery"]()) && (ctx.paginator = _t.first);
+        _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵqueryRefresh"](_t = _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵloadQuery"]()) && (ctx.paginator2 = _t.first);
     } }, inputs: { CompleteTasks: ["data", "CompleteTasks"] }, decls: 17, vars: 5, consts: [[1, "mainTable"], ["mat-table", "", 3, "dataSource"], ["matColumnDef", "descripcion"], ["mat-header-cell", "", 4, "matHeaderCellDef"], ["mat-cell", "", 4, "matCellDef"], ["matColumnDef", "durationS"], ["matColumnDef", "timeS"], ["matColumnDef", "dateComplete"], ["mat-header-row", "", 4, "matHeaderRowDef"], ["mat-row", "", 4, "matRowDef", "matRowDefColumns"], [3, "pageSizeOptions"], ["mat-header-cell", ""], ["mat-cell", ""], ["mat-header-row", ""], ["mat-row", ""]], template: function HistoryTableComponent_Template(rf, ctx) { if (rf & 1) {
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](0, "div", 0);
         _angular_core__WEBPACK_IMPORTED_MODULE_2__["ɵɵelementStart"](1, "table", 1);
