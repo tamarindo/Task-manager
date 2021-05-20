@@ -1,4 +1,4 @@
-import { Component, AfterViewInit ,ViewChild, Input,Output, EventEmitter} from '@angular/core';
+import { Component, AfterViewInit ,ViewChild, Input,Output, EventEmitter, OnInit} from '@angular/core';
 
 import {Task} from '../../models/task'
 import {MatPaginator} from '@angular/material/paginator';
@@ -15,13 +15,14 @@ import { ThrowStmt } from '@angular/compiler';
   styleUrls: ['./main-table.component.scss']
 })
 
-export class MainTableComponent implements AfterViewInit  {
+export class MainTableComponent implements OnInit , AfterViewInit {
   displayedColumns: string[] =  ['descripcion', 'durationS','Controles', 'timeS','opciones'];
   TablePendingTasks: any = null;
   StatusPlay:boolean = false;
   timer:number = 0;
-
+  idFristE:any;
   @Input('data') PendingTasks:any;
+  @Input('idFristElement') idFristElement:string="";
   
   @Output() deleteTaskEvent = new EventEmitter<Task>();
   @Output() completeTaskEvent = new EventEmitter<Task>();
@@ -38,15 +39,27 @@ export class MainTableComponent implements AfterViewInit  {
   @ViewChild(MatPaginator, {static:true}) paginator: any;
 
 
-  ngAfterViewInit() {
-    this.updateTable(this.PendingTasks);
+  ngOnInit() {
+    //this.updateTable(this.PendingTasks);
+ 
   }
-
+  ngAfterViewInit(){
+    if(localStorage.getItem('timer') != null){
+      let task:any = JSON.parse(localStorage.getItem('pengindTask')|| '');
+      let timer:any = JSON.parse(localStorage.getItem('timer')|| '')
+      task.timeS = timer.timer;
+      setTimeout(()=>{
+      this.editTask(task); },500);   
+      localStorage.removeItem('pengindTask');
+      localStorage.removeItem('timer');  
+    };
+  }
   
   updateTable(PendingTasks:Task[]){
     this.TablePendingTasks =  new MatTableDataSource<Task>(
       PendingTasks
       );
+      this.idFristE = PendingTasks[0].id;
     this.TablePendingTasks.paginator = this.paginator;
   }
   
@@ -63,17 +76,29 @@ export class MainTableComponent implements AfterViewInit  {
           const f:Date = new Date();
           task.dateComplete = f.getDate() + "-"+ f.getMonth()+ "-" +f.getFullYear();      
           this.saveTaskEvent.emit(task); 
+          this.removeTimerLocalS();
+          clearInterval(id);
         }
         
         if( this.StatusPlay == false ){
           this.StatusPlay= false;
           task.timeS = this.timer;
           clearInterval(id);
+          this.removeTimerLocalS();
           this.saveTaskEvent.emit(task);
         }
         this.updateTimer(this.timer - 1);
+        this.saveTimerLocalS(task,this.timer)
       },1000);
     }
+  }
+  saveTimerLocalS(task:Task,timer:any){
+    localStorage.setItem('pengindTask', JSON.stringify(task));
+    localStorage.setItem('timer', JSON.stringify({ timer : timer }));
+  }
+  removeTimerLocalS(){
+    localStorage.removeItem('pengindTask');
+    localStorage.removeItem('timer');  
   }
   stopTime(task:any){
     task.timeS = this.timer;

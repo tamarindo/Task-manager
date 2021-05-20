@@ -2,7 +2,7 @@
     <div>
         <main-button  *ngIf=" !TableCurrency" [text]="'CREAR NUEVA TAREA'" (click)="openDialog()"></main-button>   
     </div>    
-    <div>
+    <div class="MainControls-r">
         <main-button *ngIf=" !TableCurrency " (click)="onclick()"  [modification]="'segundary'" [text]="'VER HISTORIAL'"></main-button> 
         <main-button *ngIf=" TableCurrency " (click)="onclick()"  [modification]="'segundary'" [text]=" 'Ver BACKLOG '"></main-button> 
 

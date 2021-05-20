@@ -1,16 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+@import './app/shared/style/fonts.scss';
+@import './app/shared/style/colors.scss';
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: 'Poppins'; }
 .mat-menu-panel {
     padding: 15px;
-    background: #373737;
-    color: white;
+    background: $TextColor-2;
+    color: $BranColor-tertiary;
   }
 
   .mat-menu-item {
-    color: white;
-    border-bottom: 1px solid white !important;
+    color: $BranColor-tertiary;
+    border-bottom: 1px solid $BranColor-tertiary !important;
   }
 
   .mat-menu-item:last-child {
@@ -26,8 +29,8 @@ table {
 }
 
 th.mat-header-cell {
-  background: black;
-  color: white;
+  background: $BranColor-Principal;
+  color: $BranColor-tertiary;
   text-align: center !important;
   font-family: 'Poppins';
   font-weight: 500;
@@ -38,7 +41,7 @@ content: '';
 float: right;
 height: 20px;
 width: 1px;
-background-color: white;
+background-color: $BranColor-tertiary;
 }
 
 .mat-header-cell:last-child::after{

@@ -47,7 +47,9 @@ import { ChartComponent } from './components/chart/chart.component';
     MatDialogModule,
   ],
   exports:[
-    ModalTaskDeleteComponent
+    ModalTaskDeleteComponent,
+    MatFormFieldModule,
+    MatInputModule
   ],
   bootstrap:[PanelTasksComponent]
 })

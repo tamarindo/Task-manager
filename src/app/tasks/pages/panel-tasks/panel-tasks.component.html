@@ -7,11 +7,13 @@
 <app-main-table 
     *ngIf=" !TableCurrency "
     [data]="PendingTasks"
+    [idFristElement]="idFristElement"
     (deleteTaskEvent)="deleteTask($event)"
     (completeTaskEvent)="completeTask($event)"
     (saveTaskEvent)="editTask($event)"
     (updateTimeEvent)="updateTime($event)"
     (editTaskfroModal)="editTaskfroModal($event)"
+    
 ></app-main-table>
 <div *ngIf=" TableCurrency">
     <div >
@@ -22,7 +24,6 @@
     </app-history-table>
     </div>
     <div >
-        <h2> Comportamento en la ultima semana</h2>
         <app-chart data="dataChart" ></app-chart>
     </div>
 </div>

@@ -1,8 +1,11 @@
 
+@import '../../style/colors.scss';
+
+
 .Header{
     display: flex;
     align-items: center;
-    background-color: black;
+    background-color: $BranColor-Principal;
     height: 80px;
     padding: 0 60px;
     justify-content: space-between;
@@ -10,7 +13,13 @@
         height: 30px;    
     }
     &-Link{
-        color: white;
+        color: $BranColor-tertiary;
         cursor: pointer;
     }
 }
+
+@media (max-width: 600px) {
+    .Header{
+        padding: 0 15px;
+    }
+  }

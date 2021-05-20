@@ -17,7 +17,8 @@ export class PanelTasksComponent implements OnInit {
   PendingTasks: Task[] =[];
   CompleteTasks: Task[] =[];
   dataChart: any;
- 
+  idFristElement:string = "";
+
   @ViewChild(MainTableComponent) child: any;
 
 
@@ -28,6 +29,8 @@ export class PanelTasksComponent implements OnInit {
 
   ngOnInit(): void {
     this.getTasks();
+
+
   }
 
   changeFilter(param:any){
@@ -57,7 +60,7 @@ export class PanelTasksComponent implements OnInit {
       (data) => {
         this.listTask = [];
         data.forEach(
-          (x)=>{
+          (x , index)=>{
             const auxdat:any = x.payload.doc.data();
             const objTask:Task={
               id : x.payload.doc.id,
@@ -67,6 +70,9 @@ export class PanelTasksComponent implements OnInit {
               completed:  auxdat.completed,
               orden : auxdat.orden,
             };
+            if(index == 0){
+              this.idFristElement = x.payload.doc.id;
+            }   
             if( auxdat.dateComplete != undefined){
               objTask.dateComplete = auxdat.dateComplete;
             } 
